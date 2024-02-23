@@ -1,14 +1,14 @@
 pipeline {
     agent any
     environment {
-        registry = "iamsauravsingh/python-app"
+        registry = "devopshub2020/python-app"
         registryCredential = 'dockerhub'
     }
 
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'project-1', url: 'https://github.com/iamsauravsingh7/kh-project.git'
+                git branch: 'project-1', url: 'https://github.com/darsan-antra/kh-project.git'
             }
         }
         
@@ -35,9 +35,8 @@ pipeline {
           }
         }
         stage('Deploying container to Kubernetes') {
-            agent {label 'control-plane'}
-                steps {
-                     sh "helm install project-1 python-project --set appimage=${registry}:v${BUILD_NUMBER}"
+            steps {
+                sh "helm install project-1 python-project --set appimage=${registry}:v${BUILD_NUMBER}"
             }
         }      
     }
